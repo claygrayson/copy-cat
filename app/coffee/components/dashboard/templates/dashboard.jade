@@ -1,0 +1,184 @@
+.content-heading.bg-white
+  .row
+    .col-sm-9
+      h4.m0.text-thin Welcome to CopyCat.io
+      small Copyright Your Code!
+    .col-sm-3.text-right.hidden-xs
+      button.mt-sm.btn.btn-labeled.btn-default.ripple(type='button')
+        | Apps
+        span.btn-label.btn-label-right
+          i.ion-plus-round
+.container-fluid(ng-controller='DashboardController as dash')
+  .row
+    .col-xs-12.col-lg-9
+      .row
+        .col-xs-6.col-lg-3
+          .card
+            .card-body.pv
+              .clearfix
+                .pull-left
+                  h4.m0.text-thin {{ orgs.length }}
+                  small.m0.text-muted
+                    | Total Organizations
+                .pull-right.mt-lg
+                  sparkline(values='sparkValues', options='sparkOpts', data-line-color="{{colorByName('green-500')}}")
+        .col-xs-6.col-lg-3
+          .card
+            .card-body.pv
+              .clearfix
+                .pull-left
+                  h4.m0.text-thin {{ totalRepos }}
+                  small.m0.text-muted
+                    | Total Repositories
+                .pull-right.mt-lg
+                  sparkline(values='sparkValues', options='sparkOpts', data-line-color="{{colorByName('green-500')}}")
+        .col-xs-6.col-lg-3
+          .card
+            .card-body.pv
+              .clearfix
+                .pull-left
+                  h4.m0.text-thin -
+                  small.m0.text-muted
+                    | Repos Monitored
+                .pull-right.mt-lg
+                  sparkline(values='sparkValues', options='sparkOpts', data-line-color="{{colorByName('info')}}")
+        .col-xs-6.col-lg-3
+          .card
+            .card-body.pv
+              .clearfix
+                .pull-left
+                  h4.m0.text-thin {{ totalCopyrights }}
+                  small.m0.text-muted
+                    | Copyrights
+                .pull-right.mt-lg
+                  sparkline(values='sparkValues', options='sparkOpts', data-line-color="{{colorByName('purple-400')}}")
+      .row
+        .col-lg-12
+          .card
+            .card-heading
+              button.pull-right.btn.btn-default.btn-sm(ng-click='table.tableParams.sorting({})') Clear sorting
+              .card-title Copyright Overview
+            table.ng-table-wrapper.table.table-striped(ng-table='table.tableParams')
+              tbody
+                tr(ng-repeat='org in orgs')
+                  td(data-title="''")
+                    img(height='30' width='30' ng-src='{{ org.avatar_url }}')
+                  td(data-title="'Name'", sortable="'name'") {{ org.name }}
+                  td(data-title="'Repos'", sortable="'repos'") {{ org.num_repos }} repos
+                  td(data-title="'Copyrights'", sortable="'copyrights'") -
+                  td(data-title="'Status'")
+                    uib-progress
+                      uib-bar(ng-repeat='bar in stacked track by $index', value='bar.value', type='{{bar.type}}')
+                        span(ng-hide='ng-hide', bar.value='bar.value')
+    .col-xs-12.col-lg-3
+      // Activity feed
+      .card
+        .card-heading
+          // START dropdown
+          .pull-right.dropdown(uib-dropdown='dropdown2')
+            button.btn.btn-default.btn-flat.btn-flat-icon(type='button', uib-dropdown-toggle='')
+              em.ion-android-more-vertical
+            ul.dropdown-menu.md-dropdown-menu.dropdown-menu-right(role='menu')
+              li
+                a(href='') Last 30 days
+              li
+                a(href='') Last week
+              li
+                a(href='') Last year
+          // END dropdown
+          .card-title Latest Activity
+        .card-body.bb
+          p.pull-left.mr
+            a(href='')
+              img.img-circle.thumb32(src='app/img/user/04.jpg', alt='User')
+          .oh
+            p
+              strong.spr Adam
+              span.spr posted in
+              a(href='') Material
+            p.bl.pl
+              i That's awesome!
+            .clearfix
+              .pull-left.text-muted
+                em.ion-android-time.mr-sm
+                span {{ date | timeago }}
+        .card-body.bb
+          p.pull-left.mr
+            a(href='')
+              img.img-circle.thumb32(src='app/img/user/06.jpg', alt='User')
+          .oh
+            p
+              strong.spr Dora
+              span added a new task
+            p
+              em.ion-calendar.icon-fw
+              a(href='') Start migration
+            .clearfix
+              .pull-left.text-muted
+                em.ion-android-time.mr-sm
+                span {{ date | timeago }}
+              .pull-right
+                span 2
+                em.ion-star.ml-sm.text-warning
+        .card-body.bb
+          p.pull-left.mr
+            a(href='')
+              img.img-circle.thumb32(src='app/img/user/07.jpg', alt='User')
+          .oh
+            p
+              strong.spr Kathryn
+              span.spr published
+              a(href='') Trip
+            p
+              a(href='')
+                img.mr-sm.thumb48(src='app/img/pic1.jpg', alt='Pic')
+              a(href='')
+                img.mr-sm.thumb48(src='app/img/pic2.jpg', alt='Pic')
+            .clearfix
+              .pull-left.text-muted
+                em.ion-android-time.mr-sm
+                span {{ date | timeago }}
+              .pull-right
+                span 2
+                em.ion-ios-heart.ml-sm.text-danger
+        .card-body.bb
+          p.pull-left.mr
+            a(href='')
+              img.img-circle.thumb32(src='app/img/user/02.jpg', alt='User')
+          .oh
+            p
+              strong.spr Daniel
+              span.spr joined to
+              a(href='') Group
+            p
+              span.image-list
+                a(href='')
+                  img.img-circle.thumb32(src='app/img/user/03.jpg', alt='User')
+                a(href='')
+                  img.img-circle.thumb32(src='app/img/user/04.jpg', alt='User')
+                a(href='')
+                  img.img-circle.thumb32(src='app/img/user/05.jpg', alt='User')
+                a(href='')
+                  img.img-circle.thumb32(src='app/img/user/07.jpg', alt='User')
+                strong
+                  a.ml-sm.link-unstyled(href='') +3
+            .clearfix
+              .pull-left.text-muted
+                em.ion-android-time.mr-sm
+                span {{ date | timeago }}
+        .card-body.bb
+          p.pull-left.mr
+            a(href='')
+              img.img-circle.thumb32(src='app/img/user/03.jpg', alt='User')
+          .oh
+            p
+              strong.spr Leroy Day
+              span.spr wakes up!
+            p.bl.pl
+              i That's awesome!
+            .clearfix
+              .pull-left.text-muted
+                em.ion-android-time.mr-sm
+                span {{ date | timeago }}
+        a.card-footer.btn.btn-flat.btn-default(href='')
+          small.text-center.text-muted.lh1 See more activities

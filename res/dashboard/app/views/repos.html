@@ -1,0 +1,53 @@
+
+<div class="container-fluid">
+  <!-- START row-->
+  <div class="row loader-primary">
+    <div class="col-lg-12">
+      <!-- START panel-->
+      <div id="panelDemo13" class="panel" ng-controller="ReposController">
+        <div class="panel-heading">Select the Repositories to Monitor</div>
+        <div class="panel-body text-center" ng-show="!reposLoaded">
+          <div loader-css="ball-pulse-sync"></div>
+        </div>
+        <div class="panel-body" ng-show="reposLoaded">
+          <uib-accordion close-others="false">
+            <uib-accordion-group is-open="true" is-disabled="false">
+              <uib-accordion-heading>
+                <span>My Repositories</span>
+                <span class="pull-right">{{ personal ? personal.length : '0' }} Repositories</span>
+              </uib-accordion-heading>
+              <ul class='repo-list'>
+                <li ng-repeat='repo in personal'>
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <span ng-show="processing_repo == repo.id" loader-css="ball-clip-rotate"></span>
+                      <input ng-hide="processing_repo == repo.id" type="checkbox" value="" ng-change="monitor(repo)" ng-class="{monitored: repo.monitored}" ng-model="repo.monitored" ng-disabled="processing" /><span ng-hide="processing_repo == repo.id" class="ion-checkmark-round"></span> {{ repo.name }}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </uib-accordion-group>
+            <uib-accordion-group ng-repeat="org in orgs" is-open="false" is-disabled="false">
+              <uib-accordion-heading>
+                <span>{{ org.login }}</span><span ng-show="processing_repo == repo.id">Please wait...</span>
+                <span class="pull-right">{{ org.repos ? org.repos.length : '0' }} Repositories</span>
+              </uib-accordion-heading>
+              <ul class='repo-list'>
+                <li ng-repeat='repo in org.repos'>
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <span ng-show="processing_repo == repo.id" loader-css="ball-clip-rotate"></span>
+                      <input ng-hide="processing_repo == repo.id" type="checkbox" value="" ng-click="monitor(repo)" ng-class="{monitored: repo.monitored}" ng-checked="repo.monitored" ng-disabled="processing" /><span ng-hide="processing_repo == repo.id" class="ion-checkmark-round"></span> {{ repo.name }}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </uib-accordion-group>
+          </uib-accordion>
+        </div>
+      </div>
+      <!-- END panel-->
+    </div>
+  </div>
+  <!-- END row-->
+</div>

@@ -1,0 +1,24 @@
+
+<div class="container container-md" ng-controller="CopyrightsController">
+  <div class="card">
+    <div class="card-heading">
+      <div class="card-title text-center">Copyrights</div>
+      <div class="text-center">
+        <uib-pagination items-per-page="pageLimit" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card shadow-z0" ng-repeat="copyright in copyrights">
+        <div class="card-body">
+          <div ng-switch="copyright.status">
+            <div ng-switch-when="0" class="pill pull-right bg-red-100">Triggered</div>
+            <div ng-switch-when="1" class="pill pull-right bg-light-blue-100">Purchased</div>
+            <div ng-switch-when="2" class="">Submitted</div>
+            <div ng-switch-when="3" class="">Awarded</div>
+            <div ng-switch-when="4" class="">Canceled</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

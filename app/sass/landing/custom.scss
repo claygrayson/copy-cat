@@ -1,0 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+#copyright .sub {
+  font-size: 24px;
+  font-style: italic;
+}
+
+.btn-social {
+  padding-left: 45px;
+}
+
+.btn-social>:first-child {
+  top: 5px;
+  font-size: 1.7em;
+  width: 35px;
+}
+
+.btn-social.btn-sm {
+  height: auto;
+  line-height: 28px;
+  min-width: 0;
+}
+
+.btn-social.btn-sm>:first-child {
+  top: 0;
+}

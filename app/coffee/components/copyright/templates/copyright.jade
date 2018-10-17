@@ -1,0 +1,19 @@
+h1
+  | hi
+.progress-wrap
+  #progress-container
+    .line
+    ul
+      // Add or remove steps as you please
+      li
+        p Registration Details
+      li
+        p Choose Payment
+      li
+        p Confirm Registration
+.checkbox
+  label
+    input(type='checkbox' value='')
+    | Have you deployed this code to production?
+  div(class='min-height: 290px')
+    uib-datepicker(ng-model='dt' class='well well-sm' datepicker-options='options')

@@ -1,0 +1,21 @@
+doctype html
+html(lang='en', data-ng-app='copycat.dashboard')
+  head
+    base(href='/dashboard/')
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    meta(name='description', content='{{app.description}}')
+    meta(name='keywords', content='app, responsive, angular, bootstrap, dashboard, admin')
+    title(data-ng-bind='documentTitle') Centric - Bootstrap Admin Template
+    // build:css(..) app/css/vendor.css
+    link(rel='stylesheet', href='vendor/animate.css/animate.css')
+    link(rel='stylesheet', href='/css/dashboard.css')
+    // endbuild
+    // Application styles
+    link#appcss(rel='stylesheet', href='app/css/app.css')
+  body(data-ng-class='theme()')
+    div(data-preloader='')
+    .layout-container(data-ui-view='', data-autoscroll='false', data-ng-class='layout()')
+    // build:vendor(..) app/js/vendor.js
+    script(src='/js/dashboard.deps.js')
+    script(src='/js/dashboard.js')

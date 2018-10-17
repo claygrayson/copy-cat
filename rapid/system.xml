@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SystemModel xmlns="http://rapid.ossys.com"
+    		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    		 xsi:schemaLocation="http://rapid.ossys.com http://rapid.ossys.com/systemmodel.xsd"
+    		 key="JUQOOBDY" api="1" >
+    		  
+<DataSource name="MongoDB3"
+			type="MONGODB3"
+			host="localhost"
+			schema="copycat"
+			port="27017"
+			username="copycat"
+			password="password" />
+
+<Project	name="CopyCat"
+    		buildtool="GULP" >
+
+	<Domain name="CopyCat"
+			src="rapid/model.xml"
+			datasource="MongoDB3"
+			language="NODEJS"
+			framework="EXPRESS"
+			orm="MONGOOSE"
+			tester="MOCHA" />
+
+</Project>
+
+</SystemModel>

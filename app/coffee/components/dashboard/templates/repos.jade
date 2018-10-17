@@ -1,0 +1,52 @@
+.container-fluid
+  // START row
+  .row.loader-primary
+    .col-lg-12
+      // START panel
+      #panelDemo13.panel(ng-controller='ReposController')
+        .panel-heading Select the Repositories to Monitor
+        .panel-body.text-center(ng-show='!reposLoaded')
+          div(loader-css='ball-pulse-sync')
+        .panel-body(ng-show='reposLoaded')
+          uib-accordion(close-others='false')
+            uib-accordion-group(is-open='true', is-disabled='false')
+              uib-accordion-heading
+                span My Repositories
+                span.pull-right {{ personal ? personal.length : '0' }} Repositories
+              .table-responsive
+                table.table.table-striped
+                  thead
+                    tr
+                      th(style='width: 50px; text-') Monitor
+                      th Repository Name
+                  tbody
+                    tr(ng-repeat='repo in personal')
+                      td(align='center')
+                        .checkbox.c-checkbox
+                          label
+                            img(ng-show='processing_repo == repo.id' src='/img/ajax-loader.gif' style='margin: 0; padding: 0;')
+                            input(ng-hide='processing_repo == repo.id', type='checkbox', value='', ng-click='monitor(repo)', ng-class='{monitored: repo.monitored}', ng-model='repo.monitored', ng-disabled='processing')
+                            span.ion-checkmark-round(ng-hide='processing_repo == repo.id')
+                      td {{ repo.name }}
+            uib-accordion-group(ng-repeat='org in orgs', is-open='false', is-disabled='false')
+              uib-accordion-heading
+                span {{ org.login }}
+                span(ng-show='processing_repo == repo.id') Please wait...
+                span.pull-right {{ org.repos ? org.repos.length : '0' }} Repositories
+              .table-responsive
+                table.table.table-striped
+                  thead
+                    tr
+                      th(style='width: 50px; text-') Monitor
+                      th Repository Name
+                  tbody
+                    tr(ng-repeat='repo in org.repos')
+                      td(align='center')
+                        .checkbox.c-checkbox
+                          label
+                            img(ng-show='processing_repo == repo.id' src='/img/ajax-loader.gif' style='margin: 0; padding: 0;')
+                            input(ng-hide='processing_repo == repo.id', type='checkbox', value='', ng-click='monitor(repo)', ng-class='{monitored: repo.monitored}', ng-model='repo.monitored', ng-disabled='processing')
+                            span.ion-checkmark-round(ng-hide='processing_repo == repo.id')
+                      td {{ repo.name }}
+      // END panel
+  // END row

@@ -1,0 +1,16 @@
+nav#header.navbar.navbar-fixed-top
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target="#collapseMenu", aria-expanded='false')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(ui-sref="home.dashboard")
+          |  Home
+    #collapseMenu.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li.logout(href='/logout')
+            a(title="Logout")
+              | Logout
+#main(ui-view='main')

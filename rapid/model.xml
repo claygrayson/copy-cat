@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<DomainModel xmlns="http://rapid.ossys.com"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="http://rapid.ossys.com http://rapid.ossys.com/domainmodel.xsd">
+
+<!-- User -->
+	<BusinessObject name="User" comment="" concurrent="true" atomic="true" auditable="true">
+
+		<!-- Github ID -->
+		<Attribute	name="Github ID" type="NUMBER" minsize="1" maxsize="999999999" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github profile id" />
+
+		<!-- Stripe Id -->
+		<Attribute	name="Stripe Id" type="TEXT" minsize="10" maxsize="30" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The user's stripe id" />
+
+		<!-- Sign Up Date -->
+		<Attribute	name="Sign Up Date" type="DATE" persistent="true" 
+				required="true" validator="Past" comment="The date the user signed up" />
+
+		<!-- Last Login Date -->
+		<Attribute	name="Last Login Date" type="DATE" persistent="true" 
+				required="false" validator="Past" comment="The date the user last logged in" />
+
+		<Relationship object="Github Profile" objectverb="Owned" subjectverb="Owning" type="ONE-TO-ONE"
+				ondelete="CASCADE" onupdate="CASCADE" required="true" bidirectional="false" multi="false" embedded="true" />
+
+		<Relationship object="User Profile" objectverb="Owned" subjectverb="Owning" type="ONE-TO-ONE"
+				ondelete="CASCADE" onupdate="CASCADE" required="true" bidirectional="false" multi="false" embedded="true" />
+
+		<Relationship object="Repository" objectverb="Monitored" subjectverb="Monitoring" type="MANY-TO-MANY"
+				ondelete="CASCADE" onupdate="CASCADE" required="false" bidirectional="true" multi="false" embedded="false" />
+
+		<Key type="UNIQUE">
+			<Attribute name="Github ID" type="TEXT"/>
+		</Key>
+
+	</BusinessObject>
+
+
+
+<!-- Github Profile -->
+	<BusinessObject name="Github Profile" concurrent="true" atomic="true" auditable="true">
+
+		<!-- Email -->
+		<Attribute name="Email" persistent="true" type="TEXT" minsize="7" maxsize="50" comment="The user's github email."
+				characterset="utf-8" required="false" validator="Email" />
+
+		<!-- Access Token -->
+		<Attribute	name="Access Token" type="TEXT" minsize="40" maxsize="40" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github access token" />
+
+		<!-- Login -->
+		<Attribute	name="Login" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github login name" />
+
+		<!-- Company -->
+		<Attribute	name="Company" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github company" />
+
+		<!-- Location -->
+		<Attribute	name="Location" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github location" />
+
+		<!-- Hireable -->
+		<Attribute	name="Hireable" type="BOOLEAN" persistent="true"
+				required="false" validator="" comment="The user's github hireable status" />
+
+		<!-- Bio -->
+		<Attribute	name="Bio" type="TEXT" minsize="1" maxsize="1200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's github bio" />
+
+	</BusinessObject>
+
+
+
+<!-- User Profile -->
+	<BusinessObject name="User Profile" concurrent="true" atomic="true" auditable="true">
+
+		<!-- First Name -->
+		<Attribute	name="First Name" type="TEXT" minsize="1" maxsize="40" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's first name" />
+
+		<!-- Last Name -->
+		<Attribute	name="Last Name" type="TEXT" minsize="1" maxsize="40" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's last name" />
+
+		<!-- Email -->
+		<Attribute name="Email" persistent="true" type="TEXT" minsize="7" maxsize="50" comment="The user's email."
+				characterset="utf-8" required="false" validator="Email" />
+
+		<!-- Phone -->
+		<Attribute name="Phone" persistent="true" type="TEXT" minsize="5" maxsize="20" comment="The user's phone number."
+				characterset="utf-8" required="false" validator="" />
+
+		<!-- Company Name -->
+		<Attribute	name="Company Name" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company name" />
+
+		<!-- Company Address 1 -->
+		<Attribute	name="Company Address 1" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company address line 1" />
+
+		<!-- Company Address 2 -->
+		<Attribute	name="Company Address 2" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company address line 2" />
+
+		<!-- Company City -->
+		<Attribute	name="Company City" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company city" />
+
+		<!-- Company State -->
+		<Attribute	name="Company State" type="TEXT" minsize="1" maxsize="3" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company state" />
+
+		<!-- Company State -->
+		<Attribute	name="Company Country" type="TEXT" minsize="2" maxsize="2" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company country" />
+
+		<!-- Company Zip -->
+		<Attribute	name="Company Zip" type="TEXT" minsize="2" maxsize="2" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The user's company zip" />
+
+	</BusinessObject>
+
+
+<!-- Repository -->
+	<BusinessObject name="Repository" comment="" concurrent="true" atomic="true" auditable="true">
+
+		<!-- Repo Id -->
+		<Attribute name="Repo Id" persistent="true" type="NUMBER" minsize="0" maxsize="9999999999" comment="The repo's unique id."
+				characterset="utf-8" required="true" />
+
+		<!-- Repo Name -->
+		<Attribute name="Repo Name" persistent="true" type="TEXT" minsize="0" maxsize="250" comment="The repository's name."
+				characterset="utf-8" required="true" />
+
+		<!-- Owner Login -->
+		<Attribute name="Owner Login" persistent="true" type="TEXT" minsize="0" maxsize="250" comment="The repository's owner login."
+				characterset="utf-8" required="true" />
+
+		<!-- Webhook Id -->
+		<Attribute name="Webhook Id" persistent="true" type="NUMBER" minsize="0" maxsize="9999999999" comment="The repo's unique id."
+				characterset="utf-8" required="false" validator="" />
+
+		<!-- Webhook Secret -->
+		<Attribute name="Webhook Secret" persistent="true" type="TEXT" minsize="128" maxsize="128" comment="The webhook's secret."
+				characterset="utf-8" required="true" />
+
+		<Relationship object="CopyRight" objectverb="Triggered" subjectverb="Triggering" type="ONE-TO-MANY"
+				ondelete="CASCADE" onupdate="CASCADE" required="true" bidirectional="true" multi="false" embedded="false" />
+
+		<Key type="UNIQUE">
+			<Attribute name="Repo Id" type="TEXT"/>
+		</Key>
+
+	</BusinessObject>
+
+
+<!-- CopyRight -->
+	<BusinessObject name="CopyRight" comment="" concurrent="true" atomic="true" auditable="true">
+
+		<Attribute name="Status" persistent="true" type="ENUM" comment="" required="true" default="" precision="0" >
+			<Enum name="Triggered" />
+			<Enum name="Purchased" />
+			<Enum name="Submitted" />
+			<Enum name="Awarded" />
+			<Enum name="Cancelled" />
+		</Attribute>
+
+		<!-- Ref -->
+		<Attribute	name="Ref" type="TEXT" minsize="1" maxsize="250" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright ref" />
+
+		<!-- Before SHA -->
+		<Attribute	name="Before SHA" type="TEXT" minsize="40" maxsize="40" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright sha before commit" />
+
+		<!-- After SHA -->
+		<Attribute	name="After SHA" type="TEXT" minsize="40" maxsize="40" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright sha after commit" />
+
+		<!-- File Object Id -->
+		<Attribute	name="File Object Id" type="TEXT" minsize="24" maxsize="24" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright file ObjectId" />
+
+		<!-- File Name -->
+		<Attribute	name="File Name" type="TEXT" minsize="46" maxsize="256" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright file name" />
+
+		<!-- File Content Type -->
+		<Attribute	name="File Content Type" type="TEXT" minsize="15" maxsize="15" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright file content type" />
+
+		<!-- File Length -->
+		<Attribute name="File Length" persistent="true" type="NUMBER" minsize="0" maxsize="9999999999" comment="The copyright file length"
+				characterset="utf-8" required="true" />
+
+		<!-- File Chunk Size -->
+		<Attribute name="File Chunk Size" persistent="true" type="NUMBER" minsize="0" maxsize="9999999999" comment="The copyright file chunk size"
+				characterset="utf-8" required="true" />
+
+		<!-- File Upload Date -->
+		<Attribute	name="File Upload Date" type="DATE" persistent="true" 
+				required="true" validator="Past" comment="The date the copyright file was created" />
+
+		<!-- File MD5 -->
+		<Attribute	name="File MD5" type="TEXT" minsize="32" maxsize="32" persistent="true" characterset="utf-8" 
+				required="true" validator="" comment="The copyright file md5" />
+
+		<Relationship object="Copyright Sender" objectverb="Owned" subjectverb="Owning" type="ONE-TO-ONE"
+				ondelete="CASCADE" onupdate="CASCADE" required="true" bidirectional="false" multi="false" embedded="true" />
+
+		<Key type="UNIQUE">
+			<Attribute name="After SHA" type="TEXT"/>
+		</Key>
+
+	</BusinessObject>
+
+
+
+<!-- Copyright Sender -->
+	<BusinessObject name="Copyright Sender" concurrent="true" atomic="true" auditable="true">
+
+		<!-- Login -->
+		<Attribute	name="Login" type="TEXT" minsize="1" maxsize="200" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The sender's github login name" />
+
+		<!-- Profile ID -->
+		<Attribute	name="Profile ID" type="NUMBER" minsize="1" maxsize="999999999" persistent="true" characterset="utf-8" 
+				required="false" validator="" comment="The sender's github profile id" />
+
+	</BusinessObject>
+
+</DomainModel>
